@@ -1,4 +1,5 @@
 import {Point} from "./Point";
+
 export class Draw {
     constructor(canvas) {
         this.canvas = canvas;
@@ -22,6 +23,10 @@ export class Draw {
         this.ctx.fillRect(0, 0, this.width, this.height);
     }
 
+    clear() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+    }
+
     rectangle(origin, size, color) {  // origin is top left point
         this.ctx.fillStyle = color;
         this.ctx.fillRect(origin.x, origin.y, size.x, size.y);
@@ -37,10 +42,12 @@ export class Draw {
         this.ctx.fill();
     }
 
-    circle(origin, radius, color) {
-        this.ctx.strokeStyle = color;
+    circle(origin, radius, color = 'black') {
         this.ctx.beginPath();
         this.ctx.arc(origin.x, origin.y, radius, 0, Math.PI * 2);
+        this.ctx.fillStyle = color; // set fill color
+        this.ctx.fill(); // fill circle
+        this.ctx.strokeStyle = color;
         this.ctx.stroke();
     }
 }
