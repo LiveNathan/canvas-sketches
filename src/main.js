@@ -1,55 +1,57 @@
-import './index.css'
+import {Draw} from "./draw";
 
 const canvas = document.getElementById("canvas");
-[canvas.width, canvas.height] = [300, 300];
-const ctx = canvas.getContext('2d');
+const drawer = new Draw(canvas);
+drawer.setHeight(300);
+drawer.setWidth(300);
+drawer.background('pink');
+const ctx = drawer.ctx;
 
-ctx.fillStyle = 'rgb(200, 0, 0)' // red
-ctx.fillRect(10, 10, 300, 300); // starting x, starting y, width, height
-ctx.clearRect(50, 50, 50, 50);
-ctx.strokeRect(100, 100, 50, 50);
-ctx.strokeRect(110, 110, 50, 50);
-ctx.strokeRect(120, 120, 50, 50);
+ctx.fillStyle = "#272822";
+ctx.fillRect(0, 0, 300, 300);
 
-ctx.strokeStyle = '#AE81DB'
-ctx.beginPath()
-ctx.moveTo(250, 30)
-ctx.lineTo(50, 250)
-ctx.stroke()
+ctx.strokeStyle = "rgb(122, 123, 117)";
+let [r, g, b] = [150, 150, 117];
 
-function drawTriangle(ctx, x1, y1, x2, y2, x3, y3, color = 'black') {
-    ctx.strokeStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.lineTo(x3, y3);
-    ctx.closePath();
-    ctx.stroke();
+for (let i = 0; i !== 250; i += 5) {
+    drawer.rectangle(i, i, 50, 50, `rgb(${r}, ${g}, ${b})`);
+    r -= 1;
+    g -= 2;
+    b -= 3;
+    ctx.strokeStyle = `rgb(${r}, ${g}, ${b})`;
 }
 
-drawTriangle(ctx, 50, 50, 100, 100, 50, 200);
+ctx.strokeStyle = "#AE81DB";
+ctx.beginPath();
+ctx.moveTo(250, 30);
+ctx.lineTo(50, 250);
+ctx.stroke();
 
-function drawCircle(x, y, r, color = "black") {
-    ctx.strokeStyle = color;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.stroke();
+let [x1, y1, x2, y2, x3, y3] = [290, 50, 290, 50, 290, 90];
+let [red, green, blue] = [200, 255, 255];
+
+for (let i = 0; i !== 20; i++) {
+    drawer.triangle(x1, y1, x2, y2, x3, y3, `rgb(${red}, ${green}, ${blue})`);
+    x1 -= 5;
+    y1 += 3;
+    x2 -= 6;
+    y2 += 3;
+    x3 -= 7;
+    y3 -= 1;
+    red -= 1;
+    green -= 2;
+    blue -= 3;
 }
 
-drawCircle(150, 150, 50);
+[x1, y1] = [30, 200];
+let radius = 3;
 
-class Point {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    add(point) {
-        this.x += point.x
-        this.y += point.y
-    }
+for (let i = 0; i !== 20; i++) {
+    drawer.circle(x1, y1, radius, `rgb(${r}, ${g}, ${b})`);
+    x1 += 5;
+    y1 += 3;
+    radius += 1;
+    r -= 1;
+    g -= 2;
+    b -= 10;
 }
-
-const origin = new Point(0, 0);
-const offset = new Point(10, 10);
-origin.add(offset);
