@@ -1,3 +1,4 @@
+import {Point} from "./Point";
 export class Draw {
     constructor(canvas) {
         this.canvas = canvas;
@@ -21,25 +22,25 @@ export class Draw {
         this.ctx.fillRect(0, 0, this.width, this.height);
     }
 
-    rectangle(x, y, width, height, color) {
+    rectangle(origin, size, color) {  // origin is top left point
         this.ctx.fillStyle = color;
-        this.ctx.fillRect(x, y, width, height);
+        this.ctx.fillRect(origin.x, origin.y, size.x, size.y);
     }
 
-    triangle(x1, y1, x2, y2, x3, y3, color = '#AE81DB') {
+    triangle(point1, point2, point3, color = '#AE81DB') {
         this.ctx.fillStyle = color;
         this.ctx.beginPath();
-        this.ctx.moveTo(x1, y1);
-        this.ctx.lineTo(x2, y2);
-        this.ctx.lineTo(x3, y3);
+        this.ctx.moveTo(point1.x, point1.y);
+        this.ctx.lineTo(point2.x, point2.y);
+        this.ctx.lineTo(point3.x, point3.y);
         this.ctx.closePath();
         this.ctx.fill();
     }
 
-    circle(x, y, r, color) {
+    circle(origin, radius, color) {
         this.ctx.strokeStyle = color;
         this.ctx.beginPath();
-        this.ctx.arc(x, y, r, 0, Math.PI * 2);
+        this.ctx.arc(origin.x, origin.y, radius, 0, Math.PI * 2);
         this.ctx.stroke();
     }
 }
