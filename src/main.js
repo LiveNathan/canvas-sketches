@@ -7,7 +7,7 @@ const canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const draw = new Draw(canvas);
-draw.background("black");
+draw.background("gray");
 
 const balls = [];
 
@@ -36,7 +36,7 @@ function animate() {
     balls.forEach(ball => ball.animate());
 }
 
-animate();
+// animate();
 
 function getRandomColor(){
     const r = Math.floor(Math.random() * 256);
@@ -44,3 +44,7 @@ function getRandomColor(){
     const b = Math.floor(Math.random() * 256);
     return `rgb(${r},${g},${b})`;
 }
+
+
+const startPoint = new Point(canvas.width / 2, canvas.height);
+draw.drawFractalTree(startPoint, 300, 0, 10);
